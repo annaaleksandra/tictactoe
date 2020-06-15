@@ -1,0 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+}
+
+.box {
+    border: 2px solid green;
+}
+
+#mark {
+    font-size: 80px;
+    text-align: center;
+}
