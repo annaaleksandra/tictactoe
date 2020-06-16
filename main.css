@@ -3,17 +3,152 @@
     margin: 0;
 }
 
+body {
+    font-family: 'Balsamiq Sans', cursive;
+    background-color: #b6eb7a;
+}
+
+
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#title {
+    font-size: 60px;
+    padding: 60px 0 60px 0;
+    color: rgba(25, 65, 25, 0.9);
+}
+
 .gameboard {
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
+    justify-content: center;
 }
 
 .box {
-    border: 2px solid green;
+    border: 2px solid #f7f7ee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
 }
 
-#mark {
-    font-size: 80px;
-    text-align: center;
+
+
+.box:first-child,
+.box:nth-child(2),
+.box:nth-child(3) {
+    border-top: none;
+}
+
+.box:first-child,
+.box:nth-child(4),
+.box:nth-child(7) {
+    border-left: none;
+}
+
+.box:nth-child(3),
+.box:nth-child(6),
+.box:last-child {
+    border-right: none;
+}
+
+.box:nth-child(7),
+.box:nth-child(8),
+.box:last-child {
+    border-bottom: none;
+}
+
+
+
+.winningMessage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.winningMessage.show {
+    display: flex;
+}
+
+h2 {
+    color: #f7f7ee;
+    font-size: 60px;
+}
+
+
+
+#restartButton {
+    padding: 7px;
+    margin: 15px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    font-family: 'Balsamiq Sans', cursive;
+    font-weight: 400;
+    border: 1px solid white;
+}
+
+#restartButton:hover {
+    background-color: #fa852c;
+    color: #175d72;
+    border: 1px solid #2ca5ca;
+}
+
+
+
+.box.x::before,
+.box.x::after,
+.box.circle::before {
+    background-color: #1e7a96;
+}
+
+.box.x::before,
+.box.x::after {
+    content: '';
+    position: absolute;
+    width: 90px;
+    height: 15px;
+}
+
+.box.x::before {
+    transform: rotate(45deg);
+}
+
+.box.x::after {
+    transform: rotate(-45deg);
+}
+
+.box.o::before,
+.box.o::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.box.o::before {
+    width: 90px;
+    height: 90px;
+    background-color: #fb7813;
+}
+
+.box.o::after {
+    width: 70px;
+    height: 70px;
+    background-color: #b6eb7a;
+    position: absolute;
 }

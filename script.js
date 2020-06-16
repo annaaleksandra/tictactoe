@@ -1,7 +1,3 @@
-const test = document.getElementById('tt');
-test.innerText = "Tic Tac Toe";
-
-
 const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -16,84 +12,69 @@ const winningCombos = [
 ];
 
 
+const X_CLASS = 'x';
+const O_CLASS = 'o';
+const boxElements = document.querySelectorAll('.box');
+const winningMessageTextElement = document.querySelector('h2');
+const winningMessageElement = document.getElementById('winningMessage');
+const restartButton = document.getElementById('restartButton');
+let circleTurn;
 
-let gameboard = [];
-let turn = 'X';
-let win;
+startGame();
 
-const squares = Array.from(document.querySelectorAll('.gameboard div'));
+restartButton.addEventListener('click', startGame);
 
-
-document.querySelector('.gameboard').addEventListener('click', handleTurn);
-const messages = document.querySelector('h2');
-
-
-
-
-function getWinner() {
-    let winner = null;
-    winningCombos.forEach(function(combo, index) {
-        if (gameboard[combo[0]] && gameboard[combo[0]] === gameboard[combo[1]] &&
-            gameboard[combo[0]] === gameboard[combo[2]]) 
-            
-            winner = gameboard[combo[0]];
-            
+function startGame() {
+    circleTurn = false;
+    boxElements.forEach(box => {
+        box.classList.remove(X_CLASS);
+        box.classList.remove(O_CLASS);
+        winningMessageElement.classList.remove('show');
+        box.addEventListener('click', handleClick, {once: true});
     });
+}
 
-    return winner ? winner : gameboard.includes('') ? null : 'T';
+function handleClick(e) {
+    const box = e.target;
+    const currentClass = circleTurn ? O_CLASS : X_CLASS;
+    placeMark(box, currentClass);
+    if (checkWin(currentClass)) {
+        endGame(false)
+    } else if (isDraw()) {
+        endGame(true)
+    } else {
+        switchTurn()
+    }
 
+}
+
+function endGame(draw) {
+    if (draw) {
+        winningMessageTextElement.innerText = 'Draw!'
+    } else {
+        winningMessageTextElement.innerText = `${circleTurn ? "O" : "X"} wins!`;
+    }
+    winningMessageElement.classList.add('show');
+}
+
+function isDraw() {
+    return [...boxElements].every(box => { //doesn't have naturally every method so ... is needed to create an array
+        return box.classList.contains(X_CLASS) || box.classList.contains(O_CLASS);
+    })
+}
+
+function placeMark(box, currentClass) {
+    box.classList.add(currentClass);
+}
+
+function switchTurn() {
+    circleTurn = !circleTurn
 };
 
-function handleTurn() {
-    let idx = squares.findIndex(function(square) {
-        return square === event.target;
-    });
-    gameboard[idx] = turn;
-    turn = turn === 'X' ? 'O' : 'X';
-    win = getWinner();
-    render();
-};
-
-function init() {
-    gameboard = [
-        '', '', '',
-        '', '', '',
-        '', '', '',
-    ];
-
-    render();
-};
-
-function render() {
-    gameboard.forEach(function(mark, index) {
-        
-        squares[index].textContent = mark;
-    });
-    messages.textContent = win === 'T' ? `That's a tie!` : win ? 
-    `${win} wins the game!` : `It's ${turn}'s turn!`;
-};
-
-init();
-
-
-
-
-
-
-
-
-
-//messages.textContent = win === 'T' ? `That's a tie!` : win ? 
-//`${win} wins the game!` : `It's ${turn}'s turn!`;
-
-
-
-/*
-const box1 = document.getElementById('box1')
-box1.addEventListener('click', addX);
-
-function addX() {
-    box1.innerText = 'x';
-    box1.style.fontSize = '80px';
-    box1.style.textAlign = 'center';
-}*/
+function checkWin(currentClass) {
+   return winningCombos.some(combination => {
+       return combination.every(index => {
+           return boxElements[index].classList.contains(currentClass)
+       });
+   });
+}

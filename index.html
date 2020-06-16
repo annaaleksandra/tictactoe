@@ -4,39 +4,27 @@
         <meta charset="utf-8">
         <title>Tic Tac Toe</title>
         <link rel="stylesheet" type="text/css" href="main.css">
+        <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet"> 
     </head>
     <body>
-        <h1 id="tt">Tic Tac Hoe</h1>
-        <h2>Welcome to Play</h2>
         <div class="container">
+            <h1 id="title">Tic Tac Toe</h1>
             <div class="gameboard">
-                <div class="box" id="box1">Box1
-                    <p id="mark"> </p>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+            <div class="winningMessage" id="winningMessage">
+                <div data-winning-message-text>
+                    <h2>O wins</h2>
                 </div>
-                <div class="box" id="box2">Box2
-                    <p id="mark">X</p>
-                </div>
-                <div class="box" id="box3">Box3
-                    <p id="mark"> </p>
-                </div>
-                <div class="box" id="box4">Box4
-                    <p id="mark"> </p>
-                </div>
-                <div class="box" id="box5">Box5
-                    <p id="mark"> </p>
-                </div>
-                <div class="box" id="box6">Box6
-                    <p id="mark"> </p>
-                </div>
-                <div class="box" id="box7">Box7
-                    <p id="mark"> </p>
-                </div>
-                <div class="box" id="box8">Box8
-                    <p id="mark"> </p>
-                </div>
-                <div class="box" id="box9">Box9
-                    <p id="mark"> </p>
-                </div>
+                <button id="restartButton">RESTART</button>
             </div>
         </div>
         <script defer src="script.js">
